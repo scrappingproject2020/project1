@@ -9,7 +9,6 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
     next_page = 2
 
     def parse(self, response):
-        global next_page
         articles = response.xpath("//h2[contains(@class,'entry-title')]")
         for article in articles:
             title = article.xpath(".//a/text()").get()
