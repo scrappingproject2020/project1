@@ -6,8 +6,10 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
     name = 'govinsider_smartgov'
     allowed_domains = ['govinsider.asia']
     start_urls = ['https://www.govinsider.asia/smart-gov']
+    next_page = 2
 
     def parse(self, response):
+        global next_page
         articles = response.xpath("//h2[contains(@class,'entry-title')]")
         for article in articles:
             title = article.xpath(".//a/text()").get()
@@ -15,6 +17,13 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
             blurp = article.xpath(".//parent::div/div[contains(@class,'entry-summary')]/p/text()").get()
             article_url = f"https://govinsider.asia{link}"
             yield response.follow(url=link, callback=self.parse_article, meta={'article_title': title, 'url': article_url, 'blurp': blurp})
+
+        # get next page, currently stop at 3
+        
+        if self.next_page <= 3:
+            full_url = f"https://govinsider.asia/smart-gov/page/{self.next_page}/"
+            self.next_page += 1
+            yield scrapy.Request(url=full_url, callback = self.parse)
 
             
     def parse_article(self,response):
