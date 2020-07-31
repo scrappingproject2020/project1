@@ -6,6 +6,8 @@ minearticles/pipelines.py
 minearticles/settings.py
 minearticles/spiders/__init__.py
 minearticles/spiders/cio.py
+minearticles/spiders/govinsider_smartgov.py
+minearticles/spiders/infoworldML.py
 project.egg-info/PKG-INFO
 project.egg-info/SOURCES.txt
 project.egg-info/dependency_links.txt
