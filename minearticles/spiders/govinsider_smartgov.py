@@ -29,6 +29,9 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
             title = response.request.meta['article_title']
             url = response.request.meta['url']
             blurp = response.request.meta['blurp']
+            img = response.xpath("//div[@class='col-sm-9 post-content-col']/img/@src").get()
+            imgurl = f"https://govinsider.asia{img}"
+
             paragraphs = response.xpath("//div[@class='entry-content post-content']/p")
             text =''
             
@@ -42,5 +45,6 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
                 'title': title,
                 'blurp' : blurp,
                 'text': text,
-                'url': url
+                'url': url,
+                'imgurl' : imgurl
             }
