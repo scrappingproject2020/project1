@@ -22,14 +22,9 @@ class ArticlescraperSpider(scrapy.Spider):
         item ={}
         a_body=""
         # Extracts the article_body in <p> <li> elements
-        # for p in request.xpath('//div[starts-with(@class,"cat ")]//p/text()').extract():
         title = request.xpath('//h1[@itemprop="headline"]//text()').extract()
-        # a_body = request.xpath('//div[@class="cat "]/descendant::text()').extract()
         blurp = request.xpath('//h3[@itemprop="description"]//text()').extract()
-        #a_body = request.xpath('//div[@itemprop="articleBody"]//p/text()').get()
         a_body = request.xpath('//div[@itemprop="articleBody"]/descendant::text()').extract()
-        # print(p)
-        # a_body=a_body+p
         if a_body:
             item['article_title'] =title
             item['article_body']= a_body
