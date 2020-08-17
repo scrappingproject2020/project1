@@ -15,10 +15,6 @@ df.head()
 #remove all the na
 df = df.dropna()
 
-#transform from list to values/text
-df['article_title'] = df['article_title'].str[0]
-df['blurp']=df['blurp'].str[0]
-
 #clean text function
 def clean_text(text):
     text = ''.join(text)
