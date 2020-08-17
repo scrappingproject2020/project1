@@ -21,12 +21,18 @@ class ArticlescraperSpider(scrapy.Spider):
     def parse_article_pages(self, request):
         item ={}
         a_body=""
-        # Extracts the article_body in <p> <li> elements
-        title = request.xpath('//h1[@itemprop="headline"]//text()').extract()
-        blurp = request.xpath('//h3[@itemprop="description"]//text()').extract()
+        #extract image
+        image = request.xpath('//img[@itemprop="contentUrl"]/@data-original').get()
+        title = request.xpath('//h1[@itemprop="headline"]//text()').get()
+        # a_body = request.xpath('//div[@class="cat "]/descendant::text()').extract()
+        blurp = request.xpath('//h3[@itemprop="description"]//text()').get()
+        #a_body = request.xpath('//div[@itemprop="articleBody"]//p/text()').get()
         a_body = request.xpath('//div[@itemprop="articleBody"]/descendant::text()').extract()
+        # print(p)
+        # a_body=a_body+p
         if a_body:
             item['article_title'] =title
+            item['image']=image
             item['article_body']= a_body
             item['blurp']=blurp
             item['url']= request.meta['url']
