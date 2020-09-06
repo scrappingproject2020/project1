@@ -29,6 +29,9 @@ class CioSpider(scrapy.Spider):
         url = response.request.meta['url']
         blurp = response.request.meta['blurp']
         paragraphs = response.xpath("//div[@itemprop='articleBody']/p")
+        #img = response.xpath("//div[@class='col-sm-9 post-content-col']/img/@src").get()
+        imgurl = response.xpath(".//img/@data-original").get()
+
         text =''
         for para in paragraphs:
             text = text + para.xpath(".//text()").get()
@@ -37,5 +40,6 @@ class CioSpider(scrapy.Spider):
              'title': title,
              'blurp' : blurp,
              'text': text,
-             'url': url
+             'url': url,
+             'imgrul': imgurl
          }

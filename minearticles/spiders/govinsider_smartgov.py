@@ -17,9 +17,9 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
             article_url = f"https://govinsider.asia{link}"
             yield response.follow(url=link, callback=self.parse_article, meta={'article_title': title, 'url': article_url, 'blurp': blurp})
 
-        # get next page, currently stop at 3
+        # get next page, currently stop at second page
         
-        if self.next_page <= 3:
+        if self.next_page <= 2:
             full_url = f"https://govinsider.asia/smart-gov/page/{self.next_page}/"
             self.next_page += 1
             yield scrapy.Request(url=full_url, callback = self.parse)

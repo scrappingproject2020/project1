@@ -3,21 +3,13 @@ import scrapy
 import logging
 
 class CioSpider(scrapy.Spider):
-    name = 'cio'
+    name = 'cio_cloud'
     allowed_domains = ['www.cio.com']
-    start_urls = ['https://www.cio.com/asean/category/analytics']
+    start_urls = ['https://www.cio.com/asean/category/cloud-computing']
     
 
     def parse(self, response):
         articles = response.xpath("//div[@class='main-col']/div")
-        
-        for article in articles[:2]:
-            title = article.xpath(".//div/h3/a/text()").get()
-            link = article.xpath(".//div/h3/a/@href").get()
-            blurp = "No blurp for this article"
-            article_url = f"https://www.cio.com{link}"            
-            yield response.follow(url=link, callback=self.parse_article, meta={'article_title': title, 'url': article_url, 'blurp': blurp})
-        
         for article in articles[3:]:
             title = article.xpath(".//div/h3/a/text()").get()
             link = article.xpath(".//div/h3/a/@href").get()
@@ -25,11 +17,11 @@ class CioSpider(scrapy.Spider):
             article_url = f"https://www.cio.com{link}"            
             yield response.follow(url=link, callback=self.parse_article, meta={'article_title': title, 'url': article_url, 'blurp': blurp})
 
-        # get next page at the moment, doing 1 hop by specify start=40
+        # get next page at the moment, doing 2 hops by specify start=40
         next_page = response.xpath("//a[@id='load-more-index']/@href").get()
         
         if next_page and next_page != '?start=40':
-            full_url = f"https://www.cio.com/asean/category/analytics/{next_page}"
+            full_url = f"https://www.cio.com/asean/category/cloud-computing/{next_page}"
             yield scrapy.Request(url=full_url, callback = self.parse)
         
     def parse_article(self,response):
