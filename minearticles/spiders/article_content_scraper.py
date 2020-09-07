@@ -32,7 +32,7 @@ class ArticlescraperSpider(scrapy.Spider):
         #get the blurp
         blurp = request.xpath('//h3[@itemprop="description"]//text()').get()
         #a_body = request.xpath('//div[@itemprop="articleBody"]//p/text()').get()
-        a_body = request.xpath('//div[@itemprop="articleBody"]/descendant::text()').extract()
+        a_body = ''.join(request.xpath('//div[@itemprop="articleBody"]/descendant::text()').extract()).strip()
         # print(p)
         # a_body=a_body+p
         if a_body:
@@ -43,8 +43,4 @@ class ArticlescraperSpider(scrapy.Spider):
             item['blurp']=blurp
             item['url']= request.meta['url']
             item['article_body']= a_body
-            # now = datetime.now() 
-            # date_time = now.strftime('%d/%m/%Y %H:%M:%S')
-            # with open('article_text'date_time + '.txt', 'a') as f:
-            #     f.write('name: {0}, link: {1}\n'.format(item['title'], item['link']))
         yield (item)
