@@ -41,8 +41,8 @@ class ArticlesSpider(scrapy.Spider):
                     'includeMediaResources': False,
                     'createdTypeIds': 1,
                     'categories': catdict[topic][catid],
-                    'days':-730,
-                    'pageSize':1000,
+                    'days':-7,
+                    'pageSize':50,
                     'Offset' : 0,
                     'ignoreExcludedIds': True,
                     'brandContentOnly': False,
@@ -52,10 +52,7 @@ class ArticlesSpider(scrapy.Spider):
                     'locale_id': 0,
                     'startIndex': 0
                     }
-                # response = requests.get(API_URL, params=params)
-                response = scrapy.Request(add_or_replace_parameters(API_URL, params))
-                # response = TextResponse(body = response.content, url = API_URL)
-                # output = self.parse_main_pages(response)
+                response = scrapy.Request(add_or_replace_parameters(API_URL, params),meta={'topic':topic})
 
                 yield(response)
 
@@ -70,5 +67,7 @@ class ArticlesSpider(scrapy.Spider):
                     # title['article_title']=article_title
                     # title['article_link'] = "https://www.infoworld.com" + article_url    
                     title[article_title] =  "https://www.infoworld.com" +  article_url
-                
-        yield(title)
+                     
+        yield({response.meta['topic'] : title } )
+
+    

@@ -1,18 +1,20 @@
 import json
 import scrapy
-
+import datetime
 
 
 class ArticlescraperSpider(scrapy.Spider):
     name = 'ArticleScraper'
     start_urls =['https://www.infoworld.com']
     def start_requests(self):
-        with open('articles.json') as json_file:
+        with open('articles_url_topic.json') as json_file:
             data = json.load(json_file)
             for i in range(0,4):
-                for article in data[i]:
-                    print(data[i][article])
-                    request=scrapy.Request(data[i][article],cookies={'store_language':'en'}, callback=self.parse_article_pages,meta={'url':data[i][article]})
+                topic = list(data[i].keys())[0]
+                print(topic)
+                for article in data[i][topic]:
+                    # print(data[i][article])
+                    request=scrapy.Request(data[i][topic][article],cookies={'store_language':'en'}, callback=self.parse_article_pages,meta={'url':data[i][topic][article], 'topic' : topic})
                     if request:
                         yield request
     
@@ -24,7 +26,10 @@ class ArticlescraperSpider(scrapy.Spider):
         #extract image
         image = request.xpath('//img[@itemprop="contentUrl"]/@data-original').get()
         title = request.xpath('//h1[@itemprop="headline"]//text()').get()
-        # a_body = request.xpath('//div[@class="cat "]/descendant::text()').extract()
+        #get date
+        date = request.xpath('//span[@class="pub-date"]/@content').get()
+        date =date.split('T')[0]
+        #get the blurp
         blurp = request.xpath('//h3[@itemprop="description"]//text()').get()
         #a_body = request.xpath('//div[@itemprop="articleBody"]//p/text()').get()
         a_body = request.xpath('//div[@itemprop="articleBody"]/descendant::text()').extract()
@@ -33,7 +38,13 @@ class ArticlescraperSpider(scrapy.Spider):
         if a_body:
             item['article_title'] =title
             item['image']=image
-            item['article_body']= a_body
+            item['date'] =date
+            item['topic']= request.meta['topic']
             item['blurp']=blurp
             item['url']= request.meta['url']
+            item['article_body']= a_body
+            # now = datetime.now() 
+            # date_time = now.strftime('%d/%m/%Y %H:%M:%S')
+            # with open('article_text'date_time + '.txt', 'a') as f:
+            #     f.write('name: {0}, link: {1}\n'.format(item['title'], item['link']))
         yield (item)
