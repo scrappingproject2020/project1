@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import logging
+from datetime import date
 
 class CioSpider(scrapy.Spider):
     name = 'cio_cloud'
@@ -10,6 +11,14 @@ class CioSpider(scrapy.Spider):
 
     def parse(self, response):
         articles = response.xpath("//div[@class='main-col']/div")
+        
+        for article in articles[:2]:
+            blurp = None # The 2 topmost articles has no blurp
+            title = article.xpath(".//div/h3/a/text()").get()
+            link = article.xpath(".//div/h3/a/@href").get()
+            article_url = f"https://www.cio.com{link}"            
+            yield response.follow(url=link, callback=self.parse_article, meta={'article_title': title, 'url': article_url, 'blurp': blurp})
+
         for article in articles[3:]:
             title = article.xpath(".//div/h3/a/text()").get()
             link = article.xpath(".//div/h3/a/@href").get()
@@ -29,17 +38,23 @@ class CioSpider(scrapy.Spider):
         url = response.request.meta['url']
         blurp = response.request.meta['blurp']
         paragraphs = response.xpath("//div[@itemprop='articleBody']/p")
-        #img = response.xpath("//div[@class='col-sm-9 post-content-col']/img/@src").get()
         imgurl = response.xpath(".//img/@data-original").get()
-
+        
         text =''
         for para in paragraphs:
             text = text + para.xpath(".//text()").get()
 
+        if blurp is None:
+            blurp = text[0:150]
+                 
+        article_date = date.today()
+
         yield {
-             'title': title,
+             'category': 'Cloud Computing',
              'blurp' : blurp,
+             'imgrul': imgurl,
              'text': text,
+             'title': title,
              'url': url,
-             'imgrul': imgurl
+             'date': article_date
          }

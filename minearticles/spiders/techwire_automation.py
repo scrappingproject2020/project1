@@ -2,10 +2,10 @@
 import scrapy
 
 
-class TechwireSpider(scrapy.Spider):
-    name = 'techwire'
-    allowed_domains = ['www.techwireasia.com/']
-    start_urls = ['https://www.techwireasia.com/']
+class TechwireAutomationSpider(scrapy.Spider):
+    name = 'techwire_automation'
+    allowed_domains = ['www.techwireasia.com/tag/automation']
+    start_urls = ['https://www.techwireasia.com/tag/automation/']
 
     def parse(self, response):
         # articles = response.xpath("//div[@class='large-6 medium-6 columns panel']")
@@ -34,10 +34,10 @@ class TechwireSpider(scrapy.Spider):
             if current is not None: 
                 text = text + current
 
-        blurp = text[0:150]
+        blurp = text[0:200]
 
         yield {
-             'category': 'None',
+             'category': 'Automation',
              'blurp' : blurp,
              'imgrul': imgurl,
              'text': text,
