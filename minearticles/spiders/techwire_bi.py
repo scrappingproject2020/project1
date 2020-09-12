@@ -34,7 +34,7 @@ class TechwireBiSpider(scrapy.Spider):
             if current is not None: 
                 text = text + current
 
-        blurp = text[0:200]
+        blurp = text.split('.')[:4]
 
         yield {
              'category': 'Business Intelligence',

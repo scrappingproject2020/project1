@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-
-class TechwireCloudSpider(scrapy.Spider):
-    name = 'techwire_cloud'
-    allowed_domains = ['www.techwireasia.com/tag/cloud']
-    start_urls = ['https://www.techwireasia.com/tag/cloud/']
+class TechwireSupplychainSpider(scrapy.Spider):
+    name = 'techwire_supplychain'
+    allowed_domains = ['www.techwireasia.com/tag/supply-chain']
+    start_urls = ['https://www.techwireasia.com/tag/supply-chain/']
 
     def parse(self, response):
         # articles = response.xpath("//div[@class='large-6 medium-6 columns panel']")
@@ -37,7 +36,7 @@ class TechwireCloudSpider(scrapy.Spider):
         blurp = text.split('.')[:4]
 
         yield {
-             'category': 'Cloud',
+             'category': 'Supply Chain',
              'blurp' : blurp,
              'imgrul': imgurl,
              'text': text,

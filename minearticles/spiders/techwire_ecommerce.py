@@ -2,10 +2,10 @@
 import scrapy
 
 
-class TechwireCloudSpider(scrapy.Spider):
-    name = 'techwire_cloud'
-    allowed_domains = ['www.techwireasia.com/tag/cloud']
-    start_urls = ['https://www.techwireasia.com/tag/cloud/']
+class TechwireEcommerceSpider(scrapy.Spider):
+    name = 'techwire_ecommerce'
+    allowed_domains = ['www.techwireasia.com/tag/e-commerce']
+    start_urls = ['https://www.techwireasia.com/tag/e-commerce/']
 
     def parse(self, response):
         # articles = response.xpath("//div[@class='large-6 medium-6 columns panel']")
@@ -37,7 +37,7 @@ class TechwireCloudSpider(scrapy.Spider):
         blurp = text.split('.')[:4]
 
         yield {
-             'category': 'Cloud',
+             'category': 'E-commerce',
              'blurp' : blurp,
              'imgrul': imgurl,
              'text': text,
