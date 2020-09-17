@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import re
+from datetime import datetime
 
 class OpengovCyberresilienceSpider(scrapy.Spider):
     name = 'opengov_cyberresilience'
@@ -32,9 +33,10 @@ class OpengovCyberresilienceSpider(scrapy.Spider):
         imgurl = response.xpath("//div[contains(@class, 'theme-post-content')]/preceding-sibling::div[contains(@class,'image')]/div//img/@src").get()
         article_date = response.xpath("//span[contains(@class,'item--type-date')]/text()").get()
                
-        regex = re.compile(r'[\n\t]')
+        regex = re.compile(r'[\n\t,]')
         article_date = regex.sub("", article_date)
         article_date = article_date.lstrip()
+        article_date = datetime.strptime(article_date, '%B %d %Y')
        
 
         text =''
@@ -43,14 +45,14 @@ class OpengovCyberresilienceSpider(scrapy.Spider):
             if current is not None:
                 text = text + current
         
-        blurp = text.split(".")[:4]
+        blurp = "".join(text.split(".")[:4])
 
         yield {
-             'category': 'Cyber Resilience',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Cyber Resilience',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
+             'text': text
          }

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from datetime import datetime
 
 class GovinsiderSmartgovSpider(scrapy.Spider):
     name = 'govinsider_smartgov'
@@ -41,10 +41,14 @@ class GovinsiderSmartgovSpider(scrapy.Spider):
                 if para_text is not None:
                     text = text + para_text
             
+            article_date = response.xpath("//time[@class='updated']/text()").get()
+            article_date = datetime.strptime(article_date, '%d %b %Y')
+
             yield {
                 'title': title,
+                'imgrul': imgurl,
+                'date': article_date, 
                 'blurp' : blurp,
-                'text': text,
                 'url': url,
-                'imgurl' : imgurl
+                'text': text
             }

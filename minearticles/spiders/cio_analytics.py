@@ -4,7 +4,7 @@ import logging
 from datetime import date
 
 class CioSpider(scrapy.Spider):
-    name = 'cio'
+    name = 'cio_analytics'
     allowed_domains = ['www.cio.com']
     start_urls = ['https://www.cio.com/asean/category/analytics']
     
@@ -52,11 +52,11 @@ class CioSpider(scrapy.Spider):
         article_date = date.today()
 
         yield {
-             'category': 'Analytics',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Analytics',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
+             'text': text
          }

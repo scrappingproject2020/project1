@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from datetime import datetime
 
 class TechwireCloudSpider(scrapy.Spider):
     name = 'techwire_cloud'
@@ -27,6 +27,7 @@ class TechwireCloudSpider(scrapy.Spider):
         article_date = article_date[2]
         article_date = article_date.replace("|", "").lstrip()
         article_date = article_date.replace(",", "")
+        article_date = datetime.strptime(article_date, '%d %B %Y') 
 
         text =''
         for para in paragraphs:
@@ -34,14 +35,15 @@ class TechwireCloudSpider(scrapy.Spider):
             if current is not None: 
                 text = text + current
 
-        blurp = text.split('.')[:4]
+        blurp = "".join(text.split('.')[:4])
 
         yield {
-             'category': 'Cloud',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Cloud',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
-         }
+             'text': text
+        }
+        

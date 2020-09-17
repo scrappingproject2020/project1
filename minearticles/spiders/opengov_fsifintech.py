@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import re
+from datetime import datetime
 
 class OpengovFsifintechSpider(scrapy.Spider):
     name = 'opengov_fsifintech'
@@ -33,10 +34,10 @@ class OpengovFsifintechSpider(scrapy.Spider):
         imgurl = response.xpath("//div[contains(@class, 'theme-post-content')]/preceding-sibling::div[contains(@class,'image')]/div//img/@src").get()
         article_date = response.xpath("//span[contains(@class,'item--type-date')]/text()").get()
                
-        regex = re.compile(r'[\n\t]')
+        regex = re.compile(r'[\n\t,]')
         article_date = regex.sub("", article_date)
         article_date = article_date.lstrip()
-       
+        article_date = datetime.strptime(article_date, '%B %d %Y')       
 
         text =''
         for para in paragraphs:
@@ -44,14 +45,14 @@ class OpengovFsifintechSpider(scrapy.Spider):
             if current is not None:
                 text = text + current
         
-        blurp = text.split(".")[:4]
+        blurp = "".join(text.split(".")[:4])
 
         yield {
-             'category': 'Fintech',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Fintech',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
+             'text': text
          }

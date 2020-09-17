@@ -50,11 +50,11 @@ class CioSpider(scrapy.Spider):
         article_date = date.today()
 
         yield {
-             'category': 'Cloud Computing',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Cloud Computing',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
+             'text': text
          }

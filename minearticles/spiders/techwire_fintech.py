@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from datetime import datetime
 
 class TechwireFintechSpider(scrapy.Spider):
     name = 'techwire_fintech'
@@ -27,21 +27,24 @@ class TechwireFintechSpider(scrapy.Spider):
         article_date = article_date[2]
         article_date = article_date.replace("|", "").lstrip()
         article_date = article_date.replace(",", "")
-
+        article_date = datetime.strptime(article_date, '%d %B %Y') 
+        
         text =''
         for para in paragraphs:
             current = para.xpath(".//text()").get()
             if current is not None: 
                 text = text + current
 
-        blurp = text.split('.')[:4]
+        blurp = "".join(text.split('.')[:4])
 
         yield {
-             'category': 'Fintech',
-             'blurp' : blurp,
-             'imgrul': imgurl,
-             'text': text,
+             #'category': 'Fintech',
              'title': title,
+             'imgrul': imgurl,
+             'date': article_date,
+             'blurp' : blurp,
              'url': url,
-             'date': article_date
-         }
+             'text': text
+        }
+        
+         
