@@ -52,7 +52,7 @@ class CioSpider(scrapy.Spider):
         yield {
              #'category': 'Cloud Computing',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

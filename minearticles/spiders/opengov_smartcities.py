@@ -50,7 +50,7 @@ class OpengovSmartcitiesSpider(scrapy.Spider):
         yield {
              #'category': 'Smart Cities',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

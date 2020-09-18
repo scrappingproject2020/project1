@@ -40,7 +40,7 @@ class TechwireBiSpider(scrapy.Spider):
         yield {
              #'category': 'Business Intelligence',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

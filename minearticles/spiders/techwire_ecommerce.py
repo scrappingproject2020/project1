@@ -40,7 +40,7 @@ class TechwireEcommerceSpider(scrapy.Spider):
         yield {
              #'category': 'E-commerce',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

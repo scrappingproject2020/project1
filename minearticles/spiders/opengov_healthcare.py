@@ -51,7 +51,7 @@ class OpengovHealthcareSpider(scrapy.Spider):
         yield {
              #'category': 'Health Care',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

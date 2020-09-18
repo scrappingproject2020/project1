@@ -50,7 +50,7 @@ class OpengovCriticaleventmanagementSpider(scrapy.Spider):
         yield {
              #'category': 'Critical Event Management',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

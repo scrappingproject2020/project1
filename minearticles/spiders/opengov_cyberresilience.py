@@ -50,7 +50,7 @@ class OpengovCyberresilienceSpider(scrapy.Spider):
         yield {
              #'category': 'Cyber Resilience',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

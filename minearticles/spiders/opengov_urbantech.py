@@ -50,7 +50,7 @@ class OpengovUrbantechSpider(scrapy.Spider):
         yield {
              #'category': 'Urban Tech',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

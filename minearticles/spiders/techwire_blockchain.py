@@ -40,7 +40,7 @@ class TechwireBlockchainSpider(scrapy.Spider):
         yield {
              #'category': 'Blockchain',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

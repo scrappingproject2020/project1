@@ -51,7 +51,7 @@ class OpengovIotSpider(scrapy.Spider):
         yield {
              #'category': 'IOT',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

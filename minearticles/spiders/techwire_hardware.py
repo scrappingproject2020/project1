@@ -40,7 +40,7 @@ class TechwireHardwareSpider(scrapy.Spider):
         yield {
              #'category': 'Hardware',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

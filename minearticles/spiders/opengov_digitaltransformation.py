@@ -51,7 +51,7 @@ class OpengovDigitaltransformationSpider(scrapy.Spider):
         yield {
              #'category': 'Digital Transformation',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

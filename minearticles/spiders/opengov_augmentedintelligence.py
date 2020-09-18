@@ -51,7 +51,7 @@ class OpengovAugmentedintelligenceSpider(scrapy.Spider):
         yield {
              #'category': 'Augmented Intelligence',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

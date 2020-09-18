@@ -40,7 +40,7 @@ class TechwireProductivitySpider(scrapy.Spider):
         yield {
              #'category': 'Productivity',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

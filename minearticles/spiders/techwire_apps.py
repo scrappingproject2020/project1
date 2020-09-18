@@ -40,7 +40,7 @@ class TechwireAppsSpider(scrapy.Spider):
         yield {
              #'category': 'Apps',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

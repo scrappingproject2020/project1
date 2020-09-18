@@ -41,7 +41,7 @@ class TechwireBigdataSpider(scrapy.Spider):
         yield {
              #'category': 'Big Data',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

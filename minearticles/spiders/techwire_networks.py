@@ -42,7 +42,7 @@ class TechwireNetworksSpider(scrapy.Spider):
         yield {
              #'category': 'Networks',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

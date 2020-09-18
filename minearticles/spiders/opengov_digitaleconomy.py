@@ -51,7 +51,7 @@ class OpengovDigitaleconomySpider(scrapy.Spider):
         yield {
              #'category': 'Digital Economy',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

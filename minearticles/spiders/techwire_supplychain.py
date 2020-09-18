@@ -40,7 +40,7 @@ class TechwireSupplychainSpider(scrapy.Spider):
         yield {
              #'category': 'Supply Chain',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

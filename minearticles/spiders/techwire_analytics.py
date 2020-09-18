@@ -41,7 +41,7 @@ class TechwireAnalyticsSpider(scrapy.Spider):
         yield {
              #'category': 'Analytics',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

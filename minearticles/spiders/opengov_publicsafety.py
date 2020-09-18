@@ -51,7 +51,7 @@ class OpengovPublicsafetySpider(scrapy.Spider):
         yield {
              #'category': 'Public Safety',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

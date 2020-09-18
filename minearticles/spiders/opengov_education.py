@@ -51,7 +51,7 @@ class OpengovEducationSpider(scrapy.Spider):
         yield {
              #'category': 'Education',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,

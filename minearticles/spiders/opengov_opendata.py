@@ -51,7 +51,7 @@ class OpengovOpendataSpider(scrapy.Spider):
         yield {
              #'category': 'Open Data',
              'title': title,
-             'imgrul': imgurl,
+             'imgurl': imgurl,
              'date': article_date,
              'blurp' : blurp,
              'url': url,
